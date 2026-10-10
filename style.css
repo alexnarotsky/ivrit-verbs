@@ -1,0 +1,434 @@
+/* Единая палитра «светлая бумага»: тёплый светлый фон, белые карточки, глубокий синий текст, янтарный акцент, насыщенные цвета биньянов. Без переключения тем. */
+:root {
+  --bg: #f6f3ec; --bg2: #efeadf; --card: #ffffff; --card2: #faf8f3; --ink: #1d2230; --muted: #6b7388; --line: #e7e1d4;
+  --accent: #e08a1e; --accent-ink: #2a1800; --ok: #1f9d62; --warn: #c27a10; --no: #d9365e;
+  --b0: #2f6fe0; --b1: #0f9d6b; --b2: #e0700f; --b3: #7c5cf0; --b4: #d9365e; --bc-ink: #ffffff;
+  --shadow: 0 1px 0 rgba(255, 255, 255, .9) inset, 0 1px 2px rgba(60, 50, 30, .06), 0 10px 28px rgba(60, 50, 30, .08);
+  --radius: 18px;
+  --he-font: "Segoe UI", "Arial Hebrew", "Noto Sans Hebrew", Arial, sans-serif;
+  color-scheme: light;
+}
+[data-b="0"] { --bc: var(--b0); } [data-b="1"] { --bc: var(--b1); } [data-b="2"] { --bc: var(--b2); }
+[data-b="3"] { --bc: var(--b3); } [data-b="4"] { --bc: var(--b4); }
+#player:not([data-b]) { --bc: var(--accent); }
+
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+html { background: var(--bg); }
+html, body { margin: 0; color: var(--ink); }
+body { min-height: 100vh; font: 16px/1.5 "Segoe UI Variable Text", "Segoe UI", system-ui, -apple-system, sans-serif; overflow-x: hidden;
+  background:
+    radial-gradient(900px 520px at 8% -8%, rgba(110, 168, 255, .20), transparent 62%),
+    radial-gradient(800px 480px at 100% 0%, rgba(183, 155, 255, .16), transparent 58%),
+    radial-gradient(700px 500px at 50% 110%, rgba(240, 179, 90, .18), transparent 60%), var(--bg);
+  background-attachment: fixed;
+  padding-left: env(safe-area-inset-left); padding-right: env(safe-area-inset-right); }
+button { font: inherit; color: inherit; }
+h1, h2, h3 { margin: 0; }
+.wrap { max-width: 1120px; margin: 0 auto; padding: 0 22px; }
+[lang="he"] { font-family: var(--he-font); }
+::selection { background: color-mix(in srgb, var(--accent) 40%, transparent); }
+::-webkit-scrollbar { width: 11px; } ::-webkit-scrollbar-thumb { background: var(--line); border-radius: 8px; border: 3px solid transparent; background-clip: content-box; }
+::-webkit-scrollbar-thumb:hover { background: #c9c2b2; background-clip: content-box; border: 3px solid transparent; }
+
+/* клавиши */
+kbd { display: inline-block; min-width: 24px; padding: 2px 7px; border-radius: 8px; border: 1px solid var(--line); border-bottom-width: 2px; background: var(--card2);
+  font: 600 12px/1.45 ui-monospace, "Cascadia Mono", Consolas, monospace; color: var(--ink); text-align: center; }
+.keys { display: none; margin-top: 22px; }
+@media (hover: hover) and (pointer: fine) { .keys { display: block; } }
+.keys .kt { font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin-bottom: 10px; }
+.keys .kl { display: grid; grid-template-columns: 1fr 1fr; gap: 9px 12px; }
+.keys .kl.one { grid-template-columns: auto; }
+.keys .kl span { display: flex; align-items: center; gap: 5px; font-size: 13px; color: var(--muted); white-space: nowrap; }
+.keys kbd + kbd { margin-left: -1px; }
+.keys .kl span.wide { grid-column: 1 / -1; }
+.keys kbd:last-of-type { margin-right: 5px; }
+.top .keys { margin-top: 10px; } .top .keys .kl span { font-size: 12px; }
+
+/* ---------- главная ---------- */
+.top { position: sticky; top: 0; z-index: 5; padding: calc(18px + env(safe-area-inset-top)) 0 14px;
+  background: linear-gradient(180deg, color-mix(in srgb, var(--bg) 94%, transparent), color-mix(in srgb, var(--bg) 78%, transparent));
+  backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-bottom: 1px solid var(--line); }
+.top h1 { font-size: 28px; font-weight: 700; letter-spacing: -.02em; line-height: 1.15;
+  background: linear-gradient(90deg, var(--ink), color-mix(in srgb, var(--accent) 75%, var(--ink))); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.top .sub { color: var(--muted); font-size: 14px; margin-top: 4px; }
+.search { width: 100%; margin-top: 14px; padding: 13px 18px; border-radius: 16px; border: 1px solid var(--line); background: var(--card); color: var(--ink); font-size: 16px; box-shadow: var(--shadow); }
+.search::placeholder { color: var(--muted); }
+.search:focus { outline: 0; border-color: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 25%, transparent); }
+.continue { display: block; width: 100%; margin: 18px 0 4px; padding: 18px 22px; text-align: left; border: 0; border-radius: var(--radius); cursor: pointer;
+  background: linear-gradient(120deg, var(--accent), #ff9d5c); color: var(--accent-ink); box-shadow: 0 10px 30px rgba(240, 179, 90, .25); font-weight: 700; font-size: 18px; transition: transform .12s, box-shadow .12s; }
+.continue:hover { transform: translateY(-1px); box-shadow: 0 14px 36px rgba(240, 179, 90, .32); }
+.continue small { display: block; opacity: .75; font-weight: 500; font-size: 14px; margin-top: 2px; }
+details.sec { margin-top: 18px; background: linear-gradient(180deg, var(--card), color-mix(in srgb, var(--card) 88%, var(--bg))); border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; border: 1px solid var(--line); }
+details.sec > summary { list-style: none; cursor: pointer; padding: 18px 22px 20px; display: block; }
+details.sec > summary::-webkit-details-marker { display: none; }
+details.sec > summary b { font-size: 19px; font-weight: 650; }
+.dot { display: inline-block; width: 12px; height: 12px; border-radius: 50%; background: var(--bc); margin-right: 12px; vertical-align: -1px; box-shadow: 0 0 14px var(--bc); }
+.sec-he { font-size: 24px; margin-left: 12px; color: var(--bc); }
+.sec-meta { color: var(--muted); font-size: 13px; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.bar { height: 3px; background: var(--line); }
+.bar i { display: block; height: 100%; background: var(--bc); border-radius: 0 3px 3px 0; }
+.tiles { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 12px; padding: 16px; }
+.grp { grid-column: 1 / -1; padding: 14px 4px 0; font-size: 14px; color: var(--muted); }
+.grp::before { content: ""; display: inline-block; width: 18px; height: 2px; margin-right: 10px; vertical-align: middle; background: var(--bc); border-radius: 2px; opacity: .8; }
+.row { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 8px; width: 100%; padding: 13px 15px; border: 1px solid var(--line); border-left: 4px solid var(--bc);
+  border-radius: 14px; background: var(--card2); text-align: left; cursor: pointer; min-height: 66px; transition: transform .12s, box-shadow .12s, background .12s, border-color .12s; }
+.row:hover { transform: translateY(-2px); background: color-mix(in srgb, var(--bc) 12%, var(--card2)); box-shadow: var(--shadow); border-color: color-mix(in srgb, var(--bc) 55%, var(--line)); border-left-color: var(--bc); }
+.row .n { color: var(--muted); font-size: 12px; font-variant-numeric: tabular-nums; }
+.row .he { font-size: 25px; line-height: 1.2; direction: rtl; unicode-bidi: plaintext; display: block; text-align: left; }
+.row .ru { font-size: 13px; color: var(--muted); display: block; margin-top: 2px; }
+.row .st { font-size: 12px; color: var(--muted); text-align: right; white-space: nowrap; }
+.row .st.done { color: var(--ok); font-weight: 800; font-size: 17px; }
+.row.isdone { background: color-mix(in srgb, var(--ok) 9%, var(--card2)); }
+.foot { padding: 30px 0 calc(44px + env(safe-area-inset-bottom)); text-align: center; }
+.link { background: none; border: 0; color: var(--muted); padding: 8px 12px; cursor: pointer; font-size: 14px; border-radius: 10px; }
+.link:hover { color: var(--ink); background: var(--card); }
+
+/* ---------- первая настройка ---------- */
+.card { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 24px; margin-top: 24px; box-shadow: var(--shadow); max-width: 640px; }
+.btn { display: inline-block; padding: 14px 24px; border-radius: 14px; border: 0; background: linear-gradient(120deg, var(--accent), #ff9d5c); color: var(--accent-ink); font-weight: 700; cursor: pointer; }
+.progress { height: 8px; background: var(--line); border-radius: 6px; overflow: hidden; margin-top: 16px; }
+.progress i { display: block; height: 100%; width: 0; background: var(--accent); transition: width .15s; }
+.err { color: var(--no); margin-top: 10px; }
+.note { color: var(--muted); font-size: 14px; }
+
+/* ---------- плеер ---------- */
+#player { position: fixed; inset: 0; z-index: 20; display: none; flex-direction: column;
+  background:
+    radial-gradient(800px 460px at 0% -10%, color-mix(in srgb, var(--bc) 16%, transparent), transparent 62%),
+    radial-gradient(700px 460px at 100% 0%, rgba(183, 155, 255, .08), transparent 58%), var(--bg); }
+#player.open { display: flex; }
+.p-head { padding: calc(12px + env(safe-area-inset-top)) 18px 12px; border-bottom: 1px solid var(--line); display: grid; grid-template-columns: 46px 1fr 46px; align-items: center; gap: 8px;
+  background: color-mix(in srgb, var(--bg) 70%, transparent); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
+.p-head .ic { width: 46px; height: 46px; border: 1px solid var(--line); background: var(--card); font-size: 22px; cursor: pointer; border-radius: 14px; display: grid; place-items: center; transition: background .12s, border-color .12s, color .12s; }
+.p-head .ic svg { width: 22px; height: 22px; }
+.p-head .ic:hover { background: var(--card2); border-color: var(--bc); }
+#pDone { color: var(--muted); font-size: 24px; } #pDone.on { color: var(--accent); }
+.p-title { min-width: 0; display: flex; flex-direction: column; align-items: center; }
+.vt { text-align: center; }
+.vt .hw { display: block; font-size: 32px; line-height: 1.2; direction: rtl; unicode-bidi: plaintext; }
+.vt .ru { display: block; font-size: 15px; color: var(--muted); margin-top: 1px; }
+.p-list { flex: 1; overflow-y: auto; -webkit-overflow-scrolling: touch; padding: 16px 16px 28px; }
+
+/* блок фразы: слева иврит, справа русский, посередине перекладина */
+.s { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) 22px minmax(0, 1fr); align-items: stretch; width: 100%; max-width: 980px; margin: 0 auto 12px;
+  background: linear-gradient(180deg, var(--card), color-mix(in srgb, var(--card) 90%, var(--bg))); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; cursor: pointer; text-align: left;
+  opacity: .9; transition: opacity .18s, box-shadow .22s, border-color .22s, background .22s, transform .22s; box-shadow: var(--shadow); }
+.s:hover { opacity: 1; }
+.s.on { opacity: 1; border-color: var(--bc); background: linear-gradient(180deg, color-mix(in srgb, var(--bc) 14%, var(--card)), color-mix(in srgb, var(--bc) 6%, var(--card)));
+  box-shadow: 0 0 0 1px var(--bc), 0 14px 38px color-mix(in srgb, var(--bc) 24%, transparent); }
+.s .c { position: relative; padding: 18px 12px; display: flex; align-items: center; min-width: 0; }
+.s .he { justify-content: flex-start; text-align: right; direction: rtl; padding-left: 40px; }   /* в rtl «начало» = правый край, у перекладины */
+.s .ru { justify-content: flex-start; text-align: left; }
+.s .he .t { font-size: 29px; line-height: 1.35; font-family: var(--he-font); unicode-bidi: plaintext; }
+.s .ru .t { font-size: 18px; line-height: 1.45; color: var(--muted); }
+.s.on .ru .t { color: var(--ink); }
+.s .q { position: absolute; left: 12px; top: 9px; font-size: 11px; color: var(--muted); font-variant-numeric: tabular-nums; direction: ltr; }
+.s .flag { color: var(--warn); margin-right: 4px; }
+.s .mid { display: flex; justify-content: center; padding: 12px 0; }
+.s .mid i { width: 3px; border-radius: 3px; background: var(--line); transition: background .22s, box-shadow .22s; }
+.s.on .mid i { background: var(--bc); box-shadow: 0 0 12px var(--bc); }
+.s .prog { position: absolute; left: 0; right: 0; bottom: 0; height: 3px; }
+.s .prog i { display: block; height: 100%; width: 0; background: var(--bc); }
+
+/* скрытие сторон для самопроверки: размытие, по касанию строки раскрывается */
+.hide-he .s:not(.rev) .he .t, .hide-ru .s:not(.rev) .ru .t { filter: blur(9px); user-select: none; }
+.s .t { transition: filter .15s; }
+
+/* подсветка глагола: опорные буквы цветом биньяна, приставки и окончания приглушены */
+.vb { background: color-mix(in srgb, var(--bc) 18%, transparent); border-radius: 9px; padding: 0 6px; margin: 0 -1px; }
+.vb .r { color: var(--bc); font-weight: 700; }
+.vb .a { opacity: .62; }
+
+/* управление */
+.p-ctl { border-top: 1px solid var(--line); background: color-mix(in srgb, var(--card) 80%, transparent); padding: 14px 16px calc(16px + env(safe-area-inset-bottom)); }
+.p-main { display: flex; align-items: center; justify-content: center; gap: 12px; }
+.p-main button { flex: none; display: grid; place-items: center; border: 1px solid var(--line); background: var(--card2); color: var(--ink); width: 52px; height: 52px; border-radius: 50%; cursor: pointer;
+  transition: background .12s, transform .12s, border-color .12s, box-shadow .12s; }
+.p-main button svg { width: 22px; height: 22px; }
+.p-main button:hover { background: color-mix(in srgb, var(--bc) 18%, var(--card2)); border-color: var(--bc); }
+.p-main button:active { transform: scale(.94); }
+.p-main button.play { width: 68px; height: 68px; border: 0; background: linear-gradient(135deg, var(--bc), color-mix(in srgb, var(--bc) 70%, #fff)); color: var(--bc-ink);
+  box-shadow: 0 10px 26px color-mix(in srgb, var(--bc) 42%, transparent); }
+.p-main button.play svg { width: 30px; height: 30px; }
+.p-main button.play:hover { filter: brightness(1.08); }
+.p-info { display: none; text-align: center; color: var(--muted); font-size: 13.5px; margin: 8px 0 10px; }
+.p-info.show { display: block; }
+.gapbar { height: 5px; background: var(--line); border-radius: 3px; margin: 0 auto 10px; max-width: 320px; overflow: hidden; opacity: 0; transition: opacity .15s; }
+.gapbar.on { opacity: 1; }
+.gapbar i { display: block; height: 100%; width: 100%; background: var(--bc); transform-origin: left; border-radius: 3px; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-top: 12px; align-items: center; }
+.chips .lab { font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+.chip { border: 1px solid var(--line); background: var(--card2); color: var(--ink); padding: 8px 15px; border-radius: 999px; font-size: 14px; cursor: pointer; min-height: 36px; transition: background .12s, border-color .12s, color .12s; }
+.chip:hover { border-color: var(--bc); }
+.chip[aria-pressed="true"] { background: var(--bc); color: var(--bc-ink); border-color: var(--bc); font-weight: 650; box-shadow: 0 4px 14px color-mix(in srgb, var(--bc) 30%, transparent); }
+
+/* узкий экран: фраза в две строки */
+@media (max-width: 600px) {
+  .s { grid-template-columns: 1fr; }
+  .s .mid { display: none; }
+  .s .he { padding-left: 36px; padding-bottom: 6px; }
+  .s .ru { padding-top: 0; }
+  .s .he .t { font-size: 26px; }
+  .tiles { grid-template-columns: 1fr; }
+  .top h1 { font-size: 24px; }
+}
+
+/* широкий экран или телефон на боку: список слева, управление справа */
+@media (min-width: 760px), (orientation: landscape) and (max-height: 520px) {
+  #player.open { display: grid; grid-template-columns: minmax(0, 1fr) 410px; grid-template-rows: auto minmax(0, 1fr); }
+  .p-head { grid-column: 1 / -1; }
+  .p-list { grid-column: 1; grid-row: 2; padding: 22px 26px 44px; }
+  .p-ctl { grid-column: 2; grid-row: 2; border-top: 0; border-left: 1px solid var(--line); overflow-y: auto; padding: 24px 20px calc(20px + env(safe-area-inset-bottom)); }
+  .p-main { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+  .p-main button { width: 100%; height: 50px; border-radius: 16px; }
+  .p-main button.play { grid-column: 1 / -1; order: -1; width: 100%; height: 72px; border-radius: 20px; }
+  .chips { justify-content: flex-start; margin-top: 16px; }
+  .chips .lab { flex-basis: 100%; margin: 0 0 -3px; }
+  .p-info { text-align: left; margin: 0 0 16px; }
+  .gapbar { max-width: none; margin: 0 0 16px; }
+}
+
+/* память: точка на плитке (нет точки — глагол ещё не начат) */
+.row .st { display: flex; justify-content: flex-end; align-items: center; min-width: 14px; }
+.md { display: inline-block; width: 10px; height: 10px; border-radius: 50%; background: var(--ok); }
+.row[data-m="learning"] .md { opacity: .45; }
+.row[data-m="due"] .md { background: var(--accent); box-shadow: 0 0 10px var(--accent); }
+.row[data-m="forgot"] .md { background: var(--no); box-shadow: 0 0 10px var(--no); }
+
+/* оценка после занятия */
+.rate { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 16px; }
+.rate button { padding: 12px 4px; border-radius: 14px; border: 1px solid var(--line); background: var(--card2); cursor: pointer; font-weight: 650; font-size: 14px; transition: background .12s, border-color .12s, transform .12s; }
+.rate button:active { transform: scale(.97); }
+.rate [data-r="no"] { color: var(--no); } .rate [data-r="no"]:hover { background: color-mix(in srgb, var(--no) 16%, var(--card2)); border-color: var(--no); }
+.rate [data-r="doubt"] { color: var(--accent); } .rate [data-r="doubt"]:hover { background: color-mix(in srgb, var(--accent) 16%, var(--card2)); border-color: var(--accent); }
+.rate [data-r="yes"] { color: var(--ok); } .rate [data-r="yes"]:hover { background: color-mix(in srgb, var(--ok) 16%, var(--card2)); border-color: var(--ok); }
+
+.vt .gd { display: block; margin-top: 6px; font-size: 13px; color: var(--muted); }
+
+/* карта памяти над списком */
+.map { margin-top: 18px; padding: 20px 22px 22px; background: linear-gradient(180deg, var(--card), color-mix(in srgb, var(--card) 88%, var(--bg))); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); }
+.mapb + .mapb { margin-top: 18px; }
+.mapb .cap { display: flex; align-items: baseline; gap: 10px; margin-bottom: 10px; color: var(--bc); }
+.mapb .cap b { font-size: 14px; font-weight: 650; }
+.mapb .cap span { font-size: 17px; }
+.cells { display: flex; flex-wrap: wrap; gap: 4px; }
+.mc { width: 14px; height: 14px; padding: 0; border-radius: 4px; cursor: pointer; background: transparent; border: 1px solid color-mix(in srgb, var(--bc) 45%, transparent); transition: transform .1s, border-color .1s; }
+.mc:hover { transform: scale(1.4); border-color: var(--bc); position: relative; z-index: 1; }
+.mc[data-m="learning"] { background: color-mix(in srgb, var(--bc) 42%, transparent); border-color: transparent; }
+.mc[data-m="strong"] { background: var(--bc); border-color: transparent; }
+.mc[data-m="due"] { background: color-mix(in srgb, var(--bc) 72%, transparent); border-color: transparent; outline: 2px solid var(--ink); outline-offset: 1px; }
+.mc[data-m="forgot"] { border: 2px solid var(--no); background: transparent; }
+@media (max-width: 600px) { .mc { width: 12px; height: 12px; } .map { padding: 16px; } }
+
+/* сохранить / загрузить прогресс — вверху страницы */
+.trow { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; flex-wrap: wrap; }
+.tools { display: flex; gap: 4px; flex-wrap: wrap; }
+.tools .link { padding: 6px 12px; font-size: 13px; border: 1px solid var(--line); background: var(--card); }
+.tools .link:hover { border-color: var(--accent); color: var(--ink); }
+
+/* клетки внутри заголовка блока */
+details.sec > summary .cells { margin-top: 14px; cursor: default; }
+details.sec > summary .mc { cursor: pointer; }
+
+.tools .go { background: var(--accent); color: var(--accent-ink); border-color: transparent; font-weight: 650; }
+.tools .go:hover { color: var(--accent-ink); border-color: transparent; filter: brightness(1.06); }
+
+/* из того же корня: тихий свёрнутый блок в конце списка фраз */
+.roots { max-width: 980px; margin: 18px auto 6px; color: var(--muted); }
+.roots > summary { cursor: pointer; list-style: none; font-size: 13px; padding: 6px 4px; }
+.roots > summary::-webkit-details-marker { display: none; }
+.roots > summary::before { content: "+ "; }
+.roots[open] > summary::before { content: "− "; }
+.rchips { display: flex; flex-wrap: wrap; gap: 8px; padding: 6px 0 14px; }
+.rc { display: flex; align-items: baseline; gap: 10px; padding: 8px 14px; border: 1px solid var(--line); border-radius: 12px; background: var(--card); cursor: pointer; color: var(--ink); }
+.rc:hover { border-color: var(--bc); }
+.rc span { font-size: 20px; } .rc small { font-size: 13px; color: var(--muted); }
+
+.gapbar.rec i { background: var(--no); }
+
+/* оценка фразы — только в режиме «Вспоминать» */
+.rate { display: none; }
+#player[data-mode="recall"] .rate { display: grid; }
+/* фразы вне очереди этого прохода приглушены; метка оценки на фразе */
+.s.skip { opacity: .4; }
+.s.skip:hover { opacity: .8; }
+.s[data-r] .he::before { content: ""; position: absolute; left: 14px; top: 12px; width: 9px; height: 9px; border-radius: 50%; }
+.s[data-r="yes"] .he::before { background: var(--ok); }
+.s[data-r="doubt"] .he::before { background: var(--accent); }
+.s[data-r="no"] .he::before { background: var(--no); }
+
+/* пауза и запись бегут в полоске под текущей фразой (там же, где синий прогресс) */
+.s .prog { transition: height .12s; }
+.s .prog.run { height: 6px; }
+.s .prog i.rec { background: var(--no); }
+.s .prog.run:not(.rec) i { background: var(--muted); }
+
+/* клавиши блоками по смыслу, подписи выровнены по колонкам */
+.keys .kg { margin-top: 16px; }
+.keys .kg + .kg { padding-top: 12px; border-top: 1px solid var(--line); }
+.keys .kh { font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
+.keys .kr { display: grid; grid-template-columns: 108px 1fr; align-items: center; gap: 10px; padding: 3px 0; font-size: 13px; color: var(--muted); }
+.keys .kk { display: flex; gap: 4px; }
+/* меньше воздуха над кнопкой ▶ в боковой панели */
+@media (min-width: 760px), (orientation: landscape) and (max-height: 520px) { .p-ctl { padding-top: 16px; } }
+
+/* особая буква корня этой группы: заливка цветом биньяна; выпавшая буква — бледная пунктирная */
+.vb .sp { background: var(--bc); color: var(--bc-ink); border-radius: 5px; padding: 0 3px; margin: 0 1px; font-weight: 700; }
+
+/* мягче: особая буква корня — тонкое подчёркивание цветом биньяна, без заливки */
+.vb .sp { background: none; color: var(--bc); font-weight: 700; padding: 0; margin: 0; border-radius: 0; box-shadow: inset 0 -3px 0 color-mix(in srgb, var(--bc) 60%, transparent); }
+
+/* без рамки вокруг слова: достаточно цвета корня и приглушённых приставок/окончаний */
+.vb { background: none; padding: 0; margin: 0; border-radius: 0; }
+
+/* переключатель раскладки клавиш */
+.keys .hand { display: flex; gap: 4px; margin-bottom: 4px; }
+.keys .hand button { flex: 1; padding: 6px 8px; font-size: 12px; border: 1px solid var(--line); background: var(--card); border-radius: 999px; cursor: pointer; color: var(--muted); }
+.keys .hand button[aria-pressed="true"] { background: var(--bc); color: var(--bc-ink); border-color: var(--bc); font-weight: 650; }
+.vb .sp { display: contents; }
+
+/* место выпадения: только пунктирная черта, без самой буквы (буква читалась как часть слова) */
+
+/* режимы — три равные кнопки в одну строку; оценки просторнее */
+@media (min-width: 760px), (orientation: landscape) and (max-height: 520px) {
+  .chips { flex-wrap: nowrap; gap: 6px; }
+  .chips .chip { flex: 1 1 0; padding: 8px 6px; white-space: nowrap; text-align: center; }
+}
+.rate button { white-space: nowrap; padding: 12px 2px; font-size: 13.5px; }
+#cMode { display: grid; grid-template-columns: repeat(3, 1fr); }
+#cMode .lab { grid-column: 1 / -1; }
+
+/* в боковой раскладке карточки на всю ширину списка, без пустых полей */
+@media (min-width: 760px), (orientation: landscape) and (max-height: 520px) {
+  .p-list { padding: 22px 18px 44px 22px; }
+  .s { max-width: none; margin-left: 0; margin-right: 0; }
+}
+
+.vt .gd .bh { color: var(--bc); font-weight: 650; font-size: 15px; direction: rtl; unicode-bidi: isolate; }
+
+/* шапка главной: подложка на всю ширину экрана, без видимой полосы по краям блока */
+.top { background: none; backdrop-filter: none; -webkit-backdrop-filter: none; border-bottom: 0; }
+.top::before { content: ""; position: absolute; z-index: -1; top: 0; bottom: 0; left: 50%; width: 100vw; margin-left: -50vw;
+  background: linear-gradient(180deg, color-mix(in srgb, var(--bg) 86%, transparent), color-mix(in srgb, var(--bg) 55%, transparent));
+  backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); }
+
+/* плеер: тот же плавный многоцветный фон, что и на главной; первое пятно — цвета биньяна */
+#player { background-attachment: fixed;
+  background:
+    radial-gradient(900px 520px at 8% -8%, color-mix(in srgb, var(--bc) 20%, transparent), transparent 62%),
+    radial-gradient(800px 480px at 100% 0%, rgba(183, 155, 255, .16), transparent 58%),
+    radial-gradient(700px 500px at 50% 110%, rgba(240, 179, 90, .18), transparent 60%), var(--bg); }
+.p-head { background: none; backdrop-filter: none; -webkit-backdrop-filter: none; }
+.p-ctl { background: none; }
+
+/* ---------- изящные активные кнопки (цвет биньяна сохраняется) ---------- */
+.chip, .keys .hand button { transition: background .18s, border-color .18s, color .18s, box-shadow .18s; }
+.chip[aria-pressed="true"], .keys .hand button[aria-pressed="true"] {
+  color: color-mix(in srgb, var(--bc) 78%, var(--ink));
+  background: linear-gradient(180deg, color-mix(in srgb, var(--bc) 7%, #fff), color-mix(in srgb, var(--bc) 20%, #fff));
+  border-color: color-mix(in srgb, var(--bc) 55%, transparent); font-weight: 650;
+  box-shadow: 0 1px 0 rgba(255, 255, 255, .95) inset, 0 0 0 3px color-mix(in srgb, var(--bc) 12%, transparent), 0 6px 16px color-mix(in srgb, var(--bc) 16%, transparent); }
+.chip:hover { background: color-mix(in srgb, var(--bc) 8%, var(--card2)); }
+
+.p-main button.play {
+  background:
+    radial-gradient(120% 90% at 30% 0%, rgba(255, 255, 255, .32), transparent 55%),
+    linear-gradient(145deg, color-mix(in srgb, var(--bc) 78%, #fff), color-mix(in srgb, var(--bc) 82%, #1a1030));
+  box-shadow: 0 1px 0 rgba(255, 255, 255, .45) inset, 0 -2px 6px rgba(0, 0, 0, .12) inset, 0 10px 26px color-mix(in srgb, var(--bc) 34%, transparent); }
+.p-main button.play:hover { filter: brightness(1.06) saturate(1.05); }
+.p-main button:not(.play):hover { background: color-mix(in srgb, var(--bc) 10%, #fff); border-color: color-mix(in srgb, var(--bc) 50%, transparent); }
+
+/* ---------- единый стиль: капсулы-«стекло» для всего управления ---------- */
+/* текущая фраза: без цветной рамки и ореола — чуть светлее, чуть приподнята, оттенок биньяна едва заметен */
+.s.on { border-color: color-mix(in srgb, var(--bc) 18%, var(--line));
+  background: linear-gradient(180deg, #fff, color-mix(in srgb, var(--bc) 5%, #fff));
+  box-shadow: 0 1px 0 #fff inset, 0 14px 34px rgba(60, 50, 30, .12); }
+.s.on .mid i { box-shadow: none; }
+/* полоска воспроизведения/записи — внутри карточки, со скруглением и отступами от углов */
+.s .prog { left: 20px; right: 20px; bottom: 8px; height: 3px; border-radius: 3px; background: color-mix(in srgb, var(--bc) 10%, transparent); overflow: hidden; }
+.s .prog i { border-radius: 3px; }
+.s .prog.run { height: 4px; }
+
+/* кнопки управления: те же капсулы, что у режимов */
+.p-main button, .rate button {
+  border-radius: 999px; color: var(--ink);
+  background: linear-gradient(180deg, #fff, var(--card2));
+  border: 1px solid color-mix(in srgb, var(--bc, var(--accent)) 22%, var(--line));
+  box-shadow: 0 1px 0 #fff inset, 0 4px 12px rgba(60, 50, 30, .06); }
+.p-main button svg { color: color-mix(in srgb, var(--bc) 70%, var(--ink)); }
+.p-main button:not(.play):hover, .rate button:hover {
+  background: linear-gradient(180deg, color-mix(in srgb, var(--bc) 5%, #fff), color-mix(in srgb, var(--bc) 14%, #fff));
+  border-color: color-mix(in srgb, var(--bc) 50%, transparent); }
+/* «играть» — главная, но в той же манере: окрашенное стекло, цветной значок, мягкое кольцо */
+.p-main button.play {
+  color: color-mix(in srgb, var(--bc) 82%, var(--ink));
+  background: linear-gradient(180deg, color-mix(in srgb, var(--bc) 9%, #fff), color-mix(in srgb, var(--bc) 24%, #fff));
+  border: 1px solid color-mix(in srgb, var(--bc) 55%, transparent);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, .95) inset, 0 0 0 4px color-mix(in srgb, var(--bc) 12%, transparent), 0 10px 24px color-mix(in srgb, var(--bc) 20%, transparent); }
+.p-main button.play svg { color: inherit; }
+.p-main button.play:hover { filter: none; background: linear-gradient(180deg, color-mix(in srgb, var(--bc) 13%, #fff), color-mix(in srgb, var(--bc) 30%, #fff)); }
+/* оценки: капсулы с цветным текстом, на наведении — лёгкий оттенок своего цвета */
+.rate button { font-weight: 650; }
+.rate [data-r="no"]:hover { background: linear-gradient(180deg, color-mix(in srgb, var(--no) 6%, #fff), color-mix(in srgb, var(--no) 16%, #fff)); border-color: color-mix(in srgb, var(--no) 55%, transparent); }
+.rate [data-r="doubt"]:hover { background: linear-gradient(180deg, color-mix(in srgb, var(--accent) 6%, #fff), color-mix(in srgb, var(--accent) 16%, #fff)); border-color: color-mix(in srgb, var(--accent) 55%, transparent); }
+.rate [data-r="yes"]:hover { background: linear-gradient(180deg, color-mix(in srgb, var(--ok) 6%, #fff), color-mix(in srgb, var(--ok) 16%, #fff)); border-color: color-mix(in srgb, var(--ok) 55%, transparent); }
+
+/* заголовок биньяна: цветная точка по центру, иврит налево от неё, русский направо */
+.sec-t { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); align-items: center; column-gap: 16px; }
+.sec-t .sec-he { margin: 0; text-align: right; justify-self: end; direction: rtl; }
+.sec-t .dot { margin: 0; vertical-align: 0; }
+.sec-t b { text-align: left; justify-self: start; }
+
+/* плитка глагола: иврит слева от центра, русский справа, между ними цветная точка */
+.tiles { grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); }
+.row { position: relative; grid-template-columns: 1fr; padding: 13px 26px; }
+.row .rt { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); align-items: center; column-gap: 14px; }
+.row .rt .he { text-align: right; justify-self: end; margin: 0; }
+.row .rt .sep { width: 7px; height: 7px; border-radius: 50%; background: var(--bc); opacity: .75; }
+.row .rt .ru { font-size: 14px; line-height: 1.25; margin: 0; justify-self: start; text-align: left; }
+.row .st { position: absolute; right: 10px; top: 8px; min-width: 0; }
+
+/* кнопки вверху главной: те же капсулы, что в плеере, цвет — биньяна глагола, на который попадёшь по «Заниматься» */
+.tools:not([data-b]) { --bc: var(--accent); }
+.tools .link { padding: 9px 18px; border-radius: 999px; color: var(--muted); font-weight: 500;
+  background: linear-gradient(180deg, #fff, var(--card2)); border: 1px solid color-mix(in srgb, var(--bc) 22%, var(--line));
+  box-shadow: 0 1px 0 #fff inset, 0 4px 12px rgba(60, 50, 30, .06); transition: background .18s, border-color .18s, color .18s, box-shadow .18s; }
+.tools .link:hover { color: var(--ink); background: linear-gradient(180deg, color-mix(in srgb, var(--bc) 5%, #fff), color-mix(in srgb, var(--bc) 14%, #fff)); border-color: color-mix(in srgb, var(--bc) 50%, transparent); }
+.tools .go { color: color-mix(in srgb, var(--bc) 82%, var(--ink)); font-weight: 650;
+  background: linear-gradient(180deg, color-mix(in srgb, var(--bc) 9%, #fff), color-mix(in srgb, var(--bc) 24%, #fff));
+  border: 1px solid color-mix(in srgb, var(--bc) 55%, transparent); filter: none;
+  box-shadow: 0 1px 0 rgba(255, 255, 255, .95) inset, 0 6px 16px color-mix(in srgb, var(--bc) 16%, transparent); }
+.tools .go:hover { color: color-mix(in srgb, var(--bc) 82%, var(--ink)); filter: none; background: linear-gradient(180deg, color-mix(in srgb, var(--bc) 13%, #fff), color-mix(in srgb, var(--bc) 30%, #fff)); border-color: color-mix(in srgb, var(--bc) 65%, transparent); }
+
+/* текст в кнопках по центру по вертикали (Segoe UI иначе чуть «оседает» вниз) */
+.tools .link, .chip, .rate button, .keys .hand button { display: inline-flex; align-items: center; justify-content: center; line-height: 1.15; padding-bottom: calc(var(--pb, 9px) + 1px); }
+.chip { --pb: 8px; } .rate button { --pb: 12px; } .keys .hand button { --pb: 6px; }
+
+/* «играть» — той же высоты и формы, что кнопки под ней */
+.p-main button.play { width: 52px; height: 52px; }
+.p-main button.play svg { width: 22px; height: 22px; }
+@media (min-width: 760px), (orientation: landscape) and (max-height: 520px) {
+  .p-main button.play { width: 100%; height: 50px; border-radius: 999px; }
+}
+
+/* без цветного кольца вокруг «играть» */
+.p-main button.play { box-shadow: 0 1px 0 rgba(255, 255, 255, .95) inset, 0 6px 16px color-mix(in srgb, var(--bc) 16%, transparent); }
+
+/* плитки глаголов: без цветной полоски слева, рамка одинаковая со всех сторон */
+.row, .row:hover { border-left-width: 1px; }
+.row { border-left-color: var(--line); }
+.row:hover { border-left-color: color-mix(in srgb, var(--bc) 55%, var(--line)); }
+
+/* плитки плотнее: меньше отступы, ниже высота, уже колонки */
+.tiles { grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 8px; padding: 12px 16px 16px; }
+.row { min-height: 0; padding: 7px 16px; border-radius: 12px; }
+.row .he { font-size: 22px; line-height: 1.15; }
+.row .rt { column-gap: 10px; }
+.row .rt .ru { font-size: 13px; line-height: 1.2; }
+.row .st { top: 5px; right: 8px; }
+
+/* кнопка «назад» в шапке плеера — в общем стиле */
+.p-head .ic { border-radius: 999px; color: color-mix(in srgb, var(--bc, var(--accent)) 70%, var(--ink));
+  background: linear-gradient(180deg, #fff, var(--card2)); border: 1px solid color-mix(in srgb, var(--bc, var(--accent)) 22%, var(--line));
+  box-shadow: 0 1px 0 #fff inset, 0 4px 12px rgba(60, 50, 30, .06); }
+.p-head .ic:hover { background: linear-gradient(180deg, color-mix(in srgb, var(--bc) 5%, #fff), color-mix(in srgb, var(--bc) 14%, #fff)); border-color: color-mix(in srgb, var(--bc) 50%, transparent); }
